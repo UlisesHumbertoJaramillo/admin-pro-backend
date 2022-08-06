@@ -1,3 +1,3 @@
 #admin pro - Backend
 
-recuerden ejecutar npm install
+recuerden ejecutar npm installgit
