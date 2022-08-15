@@ -18,12 +18,15 @@ console.log(process.env.PORT)
 //Middlewares
 //// configurar cors 
 app.use(cors());
+//lectura y parseo de body
+app.use(express.json())//siempre antes de las rutas
 
+//rutas
+app.use('/api/users',require('./routes/users'));//Ruta - controlador
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use('/api/login',require('./routes/auth'));//Ruta - controlador
 
+//escucha
 app.listen(port, () => {
   console.log(`Example app listening on port ${process.env.PORT}`)
 })
