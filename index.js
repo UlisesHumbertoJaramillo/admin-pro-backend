@@ -19,6 +19,8 @@ console.log(process.env.PORT);
 //Middlewares
 //// configurar cors
 app.use(cors());
+//public static
+app.use(express.static("Public"));
 //lectura y parseo de body
 app.use(express.json()); //siempre antes de las rutas
 app.use(fileUpload());
