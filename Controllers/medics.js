@@ -38,9 +38,29 @@ const createMedic = async (req, res = response) => {
 };
 
 const updateMedic = async (req, res = response) => {
+  const id = req.params.id;
+  const uid = req.uid;
   try {
+    const medic = await Medic.findById(id + "");
+    if (!medic) {
+      return res.status(400).json({
+        ok: true,
+        msg: "Medico no encontrado",
+      });
+    }
+
+    const changes = {
+      ...req.body,
+      user: uid,
+    };
+
+    const medicUpdated = await Medic.findByIdAndUpdate(id, changes, {
+      new: true,
+    });
+
     res.status(200).json({
       ok: true,
+      medicUpdated,
     });
   } catch (error) {
     console.log(error);
@@ -51,10 +71,49 @@ const updateMedic = async (req, res = response) => {
   }
 };
 
-const deleteMedic = async (req, res = response) => {
+/*
+const id = req.params.id;
+  const uid = req.uid;
+
   try {
+    const hospital = await Hospital.findById(id + "");
+    if (!hospital) {
+      return res.status(400).json({
+        ok: true,
+        msg: "Hospital no encontrado",
+      });
+    }
+
+    const changes = {
+      ...req.body,
+      user: uid,
+    };
+
+    const hospitalUpdated = await Hospital.findByIdAndUpdate(id, changes, {
+      new: true,
+    });
+
     res.status(200).json({
       ok: true,
+      hospitalUpdated,
+    });*/
+
+const deleteMedic = async (req, res = response) => {
+  const id = req.params.id;
+  try {
+    const medic = await Medic.findById(id + "");
+    if (!medic) {
+      return res.status(400).json({
+        ok: true,
+        msg: "Medico no encontrado",
+      });
+    }
+
+    await Medic.findByIdAndDelete(id);
+
+    res.status(200).json({
+      ok: true,
+      msg: "Medico eliminado",
     });
   } catch (error) {
     console.log(error);

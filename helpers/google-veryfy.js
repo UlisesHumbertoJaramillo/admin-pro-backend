@@ -8,11 +8,11 @@ async function googleVerify(token) {
     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
   const payload = ticket.getPayload();
+  const { name, email, picture } = payload;
   //const userid = payload["sub"];
   // If request specified a G Suite domain:
   // const domain = payload['hd'];
-  console.log(payload);
-  return payload;
+  return { name, email, picture };
 }
 
 module.exports = { googleVerify };
